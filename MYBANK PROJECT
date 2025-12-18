@@ -1,0 +1,83 @@
+def account():
+    import mysql.connector
+    conn = mysql.connector.connect(host="localhost", user="root", passwd="root", database="bank")
+    n = input("Enter your name: ")
+    a = int(input("Enter account no: "))
+    b = int(input("Add  balance in your account: "))
+    sql = "insert into account (name,account_number ,balance)values('" + n + "','" + str(a) + "','" + str(b) + "');"
+    print(f"record updated name is {n}, account_number is {a}, balance is {b}")
+    cur = conn.cursor()
+    cur.execute(sql)
+    conn.commit()
+    conn.close()
+
+def withdraw():
+    import mysql.connector
+    conn=mysql.connector.connect(host="localhost", user="root", passwd="root", database="bank")
+
+    b=int(input("Enter your account no: "))
+    a=input("Enter name of account holder: ")
+    w=int(input("Enter the amount you want to withdraw: "))
+
+    sql = f"UPDATE account SET balance = balance - {w} WHERE name = '{a}' AND account_number = '{b}';"
+
+    print(f"Withdrawal successful,{w}")
+    cur = conn.cursor()
+    cur.execute(sql)
+    conn.commit()
+
+def deposit():
+    import mysql.connector
+    conn=mysql.connector.connect(host="localhost", user="root", passwd="root", database="bank")
+
+    b=int(input("Enter your account no: "))
+    a=input("Enter name of account holder: ")
+    w=int(input("Enter the amount you want to withdraw: "))
+
+    sql = f"UPDATE account SET balance = balance + {w} WHERE name = '{a}' AND account_number = '{b}';"
+
+
+    cur = conn.cursor()
+    cur.execute(sql)
+    print(f"Withdrawal successful {w} , name of account holder {a}, balance is ")
+    conn.commit()
+
+
+def display():
+    import mysql.connector
+    conn = mysql.connector.connect(host="localhost", user="root", passwd="root", database="bank")
+    sql = "select *  from account;"
+    cur = conn.cursor()
+    cur.execute(sql)
+    res=cur.fetchall()
+    for row in res:
+        print(f"Account details is {row}")
+
+def quiit():
+    print("exiting the program . good bye!")
+    exit()
+
+
+def menu( ):
+    while True:
+        print(" please choice option 1 to 5")
+        print("1. Create a new account")
+        print("2. display your account")
+        print("3. withdraw money in your account")
+        print("4. deposit money for your account")
+        print("5. exit")
+        choice=int(input("enter your choice"))
+        if choice==1:
+             account()
+        elif choice==2:
+               display()
+        elif choice==3:
+             withdraw()
+        elif choice==4:
+            deposit()
+        else:
+            quiit()
+
+if __name__ == "__main__":
+    menu()
+
