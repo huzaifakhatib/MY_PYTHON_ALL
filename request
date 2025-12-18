@@ -1,0 +1,22 @@
+# import requests
+# url = requests.get('https://open.spotify.com/track/1GFQthxDi4Tqe3wJ5j0G5S?si=7debf1a7bc204039')
+# r=open('audio.wav','wb')
+# fp.write(r.content)
+# fp.close()
+# import requests
+# # Example: direct audio file URL (must end with .mp3 or .wav)
+# audio_url = "https://www.example.com/audiofile.wav"
+# response = requests.get(audio_url)
+# with open("audio.wav", "wb") as f:
+#     f.write(response.content)
+#
+import requests
+
+audio_url = "https://www.example.com/audiofile.wav"
+output_file = "audio2.wav"
+
+# Download
+response = requests.get(audio_url)
+with open(output_file, "wb") as f:
+    f.write(response.content)
+
