@@ -1,0 +1,38 @@
+letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
+           'n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+direction = input("type 'encode' to encrypt, type 'decode' to decrypt: ").lower()
+text = input("type your text: ").lower()
+shift = int(input("type the shift number: "))
+
+shift = shift % 26  # handles large shift values
+
+def cipher(choose):
+    if choose == 'encode':
+        encrypt(text, shift)
+    elif choose == 'decode':
+        decrypt(text, shift)
+    else:
+        print("invalid choice")
+
+def encrypt(org_text, shift):
+    cipher_text = ""
+    for char in org_text:
+        if char in letters:
+            shift_position = (letters.index(char) + shift) % 26
+            cipher_text += letters[shift_position]
+        else:
+            cipher_text += char
+    print(f"Here is your encoded text: {cipher_text}")
+
+def decrypt(org_text, shift):
+    plain_text = ""
+    for char in org_text:
+        if char in letters:
+            shift_position = (letters.index(char) - shift) % 26
+            plain_text += letters[shift_position]
+        else:
+            plain_text += char
+    print(f"Here is your decoded text: {plain_text}")
+
+cipher(direction)
